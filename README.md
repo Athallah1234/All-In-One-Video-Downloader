@@ -18,14 +18,72 @@
 <p>
   <a href="#-fitur-unggulan">Fitur</a> •
   <a href="#-instalasi">Instalasi</a> •
-  <a href="#-panduan-penggunaan">Panduan</a> •
-  <a href="#-konfigurasi">Konfigurasi</a> •
+  <a href="#%EF%B8%8F-panduan-penggunaan">Panduan</a> •
+  <a href="#%EF%B8%8F-konfigurasi">Konfigurasi</a> •
   <a href="#-arsitektur-kode">Arsitektur</a> •
   <a href="#-troubleshooting">Troubleshooting</a> •
   <a href="#-pengujian">Pengujian</a>
 </p>
 
 </div>
+
+---
+
+## 📚 Daftar Isi
+
+- [📖 Tentang Proyek](#-tentang-proyek)
+- [✨ Fitur Unggulan](#-fitur-unggulan)
+  - [🖥️ Antarmuka & Tema](#%EF%B8%8F-antarmuka--tema)
+  - [📥 Mode Download](#-mode-download)
+  - [🎯 Fitur Analisis URL](#-fitur-analisis-url)
+  - [📋 Manajemen Playlist](#-manajemen-playlist)
+  - [🎨 Opsi Metadata & File](#-opsi-metadata--file)
+  - [🔒 Autentikasi & Jaringan](#-autentikasi--jaringan)
+  - [📊 Progres Realtime](#-progres-realtime)
+  - [🗂️ Riwayat Unduhan (History)](#%EF%B8%8F-riwayat-unduhan-history)
+  - [⚙️ Pengaturan (Settings)](#%EF%B8%8F-pengaturan-settings)
+  - [🔄 Update yt-dlp](#-update-yt-dlp)
+- [🖥️ Persyaratan Sistem](#%EF%B8%8F-persyaratan-sistem)
+- [🚀 Instalasi](#-instalasi)
+  - [1. Kloning repositori](#1-kloning-repositori)
+  - [2. Buat virtual environment](#2-buat-virtual-environment)
+  - [3. Instal dependensi](#3-instal-dependensi)
+  - [4. Jalankan aplikasi](#4-jalankan-aplikasi)
+- [🔧 Instalasi FFmpeg](#-instalasi-ffmpeg)
+  - [Windows](#windows)
+  - [macOS](#macos)
+  - [Ubuntu / Debian](#ubuntu--debian)
+  - [Fedora / RHEL](#fedora--rhel)
+  - [Arch Linux](#arch-linux)
+- [🕹️ Panduan Penggunaan](#%EF%B8%8F-panduan-penggunaan)
+  - [Langkah Dasar: Download Video Tunggal](#langkah-dasar-download-video-tunggal)
+  - [Download Playlist / Channel](#download-playlist--channel)
+  - [Download Audio MP3](#download-audio-mp3)
+  - [Download dengan Custom Format Selector](#download-dengan-custom-format-selector)
+  - [Login / Konten Privat / Age-Restricted](#login--konten-privat--age-restricted)
+  - [Menggunakan Proxy](#menggunakan-proxy)
+  - [Membatalkan Unduhan](#membatalkan-unduhan)
+  - [Menutup Aplikasi saat Unduhan Berjalan](#menutup-aplikasi-saat-unduhan-berjalan)
+- [⚙️ Konfigurasi](#%EF%B8%8F-konfigurasi)
+  - [File Pengaturan: data/settings.json](#file-pengaturan-datasettingsjson)
+  - [Template Nama File](#template-nama-file)
+  - [Template Struktur Folder (Preserve Structure)](#template-struktur-folder-preserve-structure)
+- [🏗️ Arsitektur Kode](#%EF%B8%8F-arsitektur-kode)
+  - [Diagram Aliran Data](#diagram-aliran-data)
+  - [Komponen Utama](#komponen-utama)
+    - [YtDlpService — Jantung Aplikasi](#ytdlpservice--jantung-aplikasi)
+    - [DownloadRequest — Data Transfer Object](#downloadrequest--data-transfer-object)
+    - [QThread Worker Pattern](#qthread-worker-pattern)
+    - [Skema Database SQLite](#skema-database-sqlite)
+- [🧪 Pengujian](#-pengujian)
+  - [Menjalankan semua test](#menjalankan-semua-test)
+  - [Menjalankan test spesifik](#menjalankan-test-spesifik)
+  - [Cakupan Test](#cakupan-test)
+- [🔍 Troubleshooting](#-troubleshooting)
+- [📁 Data Lokal](#-data-lokal)
+- [🔗 Referensi & Sumber Daya](#-referensi--sumber-daya)
+- [🤝 Kontribusi](#-kontribusi)
+- [⚖️ Penggunaan Legal & Etis](#%EF%B8%8F-penggunaan-legal--etis)
 
 ---
 
