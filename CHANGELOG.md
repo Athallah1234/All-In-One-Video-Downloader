@@ -1,409 +1,466 @@
-# Changelog
+﻿# Changelog
 
-Semua perubahan penting pada proyek ini didokumentasikan di file ini.
+Semua perubahan penting pada proyek **Modern Video Downloader** didokumentasikan di sini.
 
-Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.0.0/),
+Format berdasarkan [Keep a Changelog](https://keepachangelog.com/id/1.0.0/),
 dan proyek ini mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
----
-
-## Daftar Isi
-
-- [Unreleased](#unreleased)
-- [1.0.0 — 2025-07-01](#100--2025-07-01)
-  - [Ditambahkan](#ditambahkan)
-    - [Antarmuka Pengguna](#antarmuka-pengguna-gui)
-    - [Sistem Download](#sistem-download)
-    - [Analisis URL & Metadata](#analisis-url--metadata)
-    - [Manajemen Playlist](#manajemen-playlist)
-    - [Format & Kualitas](#format--kualitas)
-    - [Subtitle](#subtitle)
-    - [Metadata & Thumbnail](#metadata--thumbnail)
-    - [Autentikasi & Jaringan](#autentikasi--jaringan)
-    - [Riwayat Unduhan](#riwayat-unduhan)
-    - [Pengaturan Aplikasi](#pengaturan-aplikasi)
-    - [Log & Diagnostik](#log--diagnostik)
-    - [Pembaruan yt-dlp](#pembaruan-yt-dlp)
-    - [Arsitektur & Internal](#arsitektur--internal)
-    - [Pengujian](#pengujian)
-- [Panduan Migrasi](#panduan-migrasi)
-- [Versi Dependensi](#versi-dependensi)
-- [Konvensi Penamaan](#konvensi-penamaan)
+> **Keterangan Tipe Perubahan:**
+> - `Added` — Fitur baru yang ditambahkan
+> - `Changed` — Perubahan pada fitur yang sudah ada
+> - `Deprecated` — Fitur yang akan dihapus di versi mendatang
+> - `Removed` — Fitur yang dihapus
+> - `Fixed` — Perbaikan bug
+> - `Security` — Perbaikan celah keamanan
+> - `Performance` — Peningkatan performa
+> - `Docs` — Pembaruan dokumentasi
+> - `Refactor` — Perubahan kode internal tanpa perubahan perilaku
+> - `Test` — Penambahan atau perbaikan unit/integration test
+> - `Chore` — Pemeliharaan rutin (dependensi, tooling, CI/CD)
 
 ---
 
 ## [Unreleased]
 
-> Bagian ini berisi perubahan yang sudah ada di branch pengembangan tetapi belum dirilis secara resmi.
+> Fitur dan perbaikan yang sedang dalam pengembangan dan belum dirilis secara resmi.
 
-### Rencana & Dalam Pengembangan
+### Planned / In Progress
 
-- [ ] Dukungan antrian unduhan (download queue) dengan prioritas
-- [ ] Notifikasi sistem (system tray notification) saat unduhan selesai
-- [ ] Preview format sebelum download (daftar stream yang tersedia)
-- [ ] Pengaturan proxy per-URL
-- [ ] Ekspor pengaturan dan impor konfigurasi
-- [ ] Dark mode per-tab independen
-- [ ] Integrasi aria2c sebagai download backend alternatif
-- [ ] Tampilan statistik unduhan (grafik kecepatan, total bandwidth)
-- [ ] Shortcut keyboard untuk aksi umum
-
----
-
-## [1.0.0] — 2025-07-01
-
-Rilis perdana **Modern Video Downloader v1.0.0** — aplikasi desktop lintas-platform berbasis Python, PySide6 (Qt6), dan yt-dlp untuk mengunduh video, audio, playlist, dan channel dari ribuan situs web.
-
----
-
-### Ditambahkan
-
-#### Antarmuka Pengguna (GUI)
-
-- **Jendela utama** (`MainWindow`) berbasis `QMainWindow` dengan ukuran default 1180×800 piksel, dapat diubah ukurannya secara bebas.
-- **Tiga tab utama** menggunakan `QTabWidget`:
-  - `Downloader` — form input URL, opsi download, dan monitoring progres
-  - `Logs` — tampilan log realtime dengan filter level
-  - `History` — tabel riwayat unduhan yang dapat dicari dan diekspor
-- **Header aplikasi** berisi:
-  - Label judul dengan ukuran font 21px tebal
-  - Badge status dinamis (`READY` / `ANALYZING` / `DOWNLOADING` / `COMPLETED` / `ERROR` / `CANCELLING`) dengan warna latar berbeda
-  - Tombol **Theme**, **Supported Sites**, **Settings**, dan **About**
-- **Statusbar** di bagian bawah jendela menampilkan:
-  - Jumlah total file yang berhasil diunduh
-  - Total ukuran kumulatif semua unduhan selesai
-  - Versi yt-dlp yang sedang terinstal
-- **Sistem tema** Light / Dark / System:
-  - Tema `System` mendeteksi kecerahan latar sistem operasi secara otomatis
-  - Toggle tema instan tanpa restart melalui tombol **Theme**
-  - Stylesheet QSS terpisah untuk Light (`LIGHT_QSS`) dan Dark (`DARK_QSS`)
-  - Warna aksen utama: `#526dff` (biru-ungu) untuk elemen primer
-  - Tombol primer memiliki kelas `objectName("Primary")` untuk styling khusus
-  - Card berbasis `QFrame` dengan `objectName("Card")`, border-radius 14px
-- **Dialog Tentang** (`About`) menampilkan versi aplikasi, versi yt-dlp, versi Python, versi PySide6, deskripsi, dan tautan ke sumber daya resmi.
-- **Dialog Pengaturan** (`SettingsDialog`) dengan ukuran 520×560 piksel, berisi semua opsi konfigurasi dengan tombol Save, Reset, dan Cancel.
-- **Dialog Situs yang Didukung** (`SupportedSitesDialog`) dengan daftar extractor yt-dlp yang dapat dicari dan di-refresh.
-- **Konfirmasi keluar** saat proses unduhan masih berjalan — dialog pilihan Cancel-and-exit atau tetap menunggu.
+- [ ] **Concurrent Downloads Queue** — Antrian unduhan paralel yang lebih canggih dengan drag-and-drop reorder
+- [ ] **Thumbnail Gallery View** — Tab galeri yang menampilkan semua unduhan selesai beserta thumbnail-nya
+- [ ] **Scheduled Downloads** — Jadwalkan unduhan pada waktu tertentu (misal: jam 03.00 saat traffic rendah)
+- [ ] **Browser Extension Integration** — Kirim URL langsung dari ekstensi browser ke aplikasi desktop
+- [ ] **SponsorBlock Integration** — Potong segmen sponsor otomatis menggunakan data komunitas SponsorBlock
+- [ ] **Chapter-based Download** — Unduh hanya chapter tertentu dari video panjang
+- [ ] **Subtitle Editor** — Editor subtitle inline terintegrasi
+- [ ] **Batch URL Import** — Import daftar URL massal dari file `.txt` atau `.csv`
+- [ ] **RSS Feed Monitoring** — Pantau feed RSS kanal dan unduh episode baru secara otomatis
+- [ ] **Speed Limit Control** — Batasi kecepatan unduhan per-item atau global
+- [ ] **Aria2c Integration** — Dukungan multi-connection download via aria2c sebagai alternatif engine
+- [ ] **Post-processing Scripts** — Jalankan skrip kustom setelah unduhan selesai
+- [ ] **Cloud Storage Upload** — Upload otomatis ke Google Drive / Dropbox / OneDrive setelah unduhan
+- [ ] **Dark/Light Theme Customizer** — Editor warna tema kustom dengan preview live
+- [ ] **System Tray Minimization** — Sembunyikan ke system tray saat diminimize
+- [ ] **macOS Native Notification** — Dukungan notifikasi macOS Notification Center
+- [ ] **Linux D-Bus Notification** — Notifikasi desktop via D-Bus untuk lingkungan Linux
+- [ ] **Drag and Drop URL** — Seret-dan-lepas URL dari browser langsung ke jendela aplikasi
+- [ ] **Multi-language UI** — Dukungan antarmuka multibahasa (id, en, ja, zh, dll.)
 
 ---
 
-#### Sistem Download
+## [1.0.0] — 2026-07-01
 
-- **Tombol Analyze URL** — menganalisis URL untuk menampilkan metadata, thumbnail, dan daftar item playlist sebelum mengunduh.
-- **Tombol Download** — memulai unduhan berdasarkan semua opsi yang dipilih; diaktifkan hanya jika URL valid.
-- **Tombol Cancel** — membatalkan unduhan yang sedang berjalan dengan mekanisme `threading.Event` yang aman (graceful cancellation).
-- **Tombol Clear** — mengosongkan semua kolom form ke kondisi awal.
-- **Progress bar per-item** (`item_progress`) — menampilkan persentase unduhan file saat ini.
-- **Progress bar total** (`total_progress`) — menampilkan persentase keseluruhan untuk playlist/channel.
-- **Label progres** (`item_label`) — nama file yang sedang diunduh.
-- **Metrics realtime** — kecepatan unduhan (B/KB/MB/GB per detik), ETA dalam detik, ukuran terunduh vs total.
-- **Buka otomatis hasil** (`open_after_download`) — setelah unduhan selesai, membuka file tunggal dengan aplikasi default, atau folder untuk playlist/multi-file.
-- **Logika buka hasil yang aman** (`safe_output_files`) — memvalidasi path output berada dalam folder yang ditentukan dan file benar-benar ada.
-- **Statistik file selesai** (`completed_file_stats`) — menghitung jumlah file, total ukuran, dan jumlah kegagalan stat.
-- **Auto-discover path output** (`discover_final_paths`) — menelusuri seluruh struktur info dict yt-dlp (termasuk `requested_downloads`, `entries`, `__files_to_move`) untuk menemukan semua file hasil unduhan, menghindari file sementara (`.part`, `.ytdl`, `.temp`, `.tmp`).
-- **Penanganan penutupan aplikasi** (`closeEvent`) — jika unduhan berjalan saat aplikasi ditutup, proses dibatalkan terlebih dahulu sebelum jendela ditutup (`_close_when_idle` flag).
+> Rilis perdana publik — Modern Video Downloader lahir sebagai aplikasi desktop Python modern berfitur lengkap berbasis PySide6 + yt-dlp.
 
----
+### Added — Fitur Baru
 
-#### Analisis URL & Metadata
+#### Antarmuka & Tema
 
-- **Validasi URL** — hanya menerima URL dengan skema `http` atau `https` dan netloc yang valid.
-- **Analisis tanpa unduh** — menggunakan `yt_dlp.YoutubeDL` dengan `skip_download=True` dan `extract_flat="in_playlist"` untuk mengambil metadata seefisien mungkin.
-- **Normalisasi metadata** — output analisis distandarisasi ke dict internal dengan field:
-  - `title` — judul konten (fallback "Tanpa judul")
-  - `uploader` — nama pengunggah atau channel (fallback "-")
-  - `duration` — durasi dalam detik (integer)
-  - `thumbnail` — URL thumbnail
-  - `extractor` — nama extractor yt-dlp
-  - `type` — klasifikasi: `video`, `playlist`, `channel`, `generic`
-  - `count` — jumlah item (playlist/channel)
-  - `playlist_items` — tuple dict item playlist
-  - `webpage_url` — URL halaman web
-  - `description` — deskripsi konten
-  - `view_count` — jumlah penayangan (non-negatif integer)
-  - `like_count` — jumlah suka (non-negatif integer)
-  - `upload_date` — tanggal upload format `YYYYMMDD`
-- **Preview metadata** di UI menampilkan: judul (tebal), uploader, durasi (format M:SS), website, tipe, jumlah video, views, likes, tanggal upload (diformat dalam Bahasa Indonesia).
-- **Fetch thumbnail otomatis** — thumbnail diunduh di background dengan User-Agent browser, gagal secara graceful dengan log warning jika tidak dapat diakses.
-- **Render thumbnail** — ditampilkan dengan skala 360×200 piksel, mempertahankan aspek rasio dengan interpolasi smooth.
-- **Render deskripsi bertahap** (chunk-based, 16 KB per chunk) menggunakan `QTimer` dengan interval 0ms — menjaga responsivitas UI saat deskripsi sangat panjang.
-- **Deteksi tipe konten** otomatis:
-  - `channel` — jika nama extractor mengandung kata "channel"
-  - `playlist` — jika `_type` adalah `"playlist"` atau `"multi_video"`
-  - `generic` — jika extractor adalah `"generic"`
-  - `video` — untuk semua kasus lainnya
+- **Sistem tema adaptif tiga mode** — Light, Dark, dan System (mengikuti tema OS secara otomatis via `QStyleHints.colorScheme`)
+- **Toggle tema instan tanpa restart** — Tombol `Theme` di header bar mengubah seluruh stylesheet QSS secara langsung
+- **Layout tiga-tab bersih** — Tab `Downloader`, `Logs`, dan `History` tanpa sidebar yang memakan ruang
+- **Status badge realtime di header** — Badge dengan enam status berwarna:
+  - `READY` (abu-abu) — Siap menerima URL
+  - `ANALYZING` (kuning) — Sedang menganalisis metadata URL
+  - `DOWNLOADING` (biru) — Proses unduhan aktif
+  - `COMPLETED` (hijau) — Unduhan berhasil selesai
+  - `ERROR` (merah) — Terjadi kesalahan
+  - `CANCELLING` (oranye) — Proses pembatalan sedang berjalan
+- **Statusbar informatif** — Menampilkan: jumlah file selesai, total ukuran unduhan (diformat human-readable), dan versi yt-dlp yang terinstal
+- **QSS stylesheet dual-mode** — `LIGHT_QSS` dan `DARK_QSS` yang simetris dengan warna utama `#526dff` (Indigo)
+- **Font konsisten** — Seluruh UI menggunakan `Segoe UI` 10pt sebagai font default
+- **Border radius modern** — Card panel `14px`, tombol `8px`, input field `7px`
+- **Tombol Primary yang mencolok** — `QPushButton#Primary` dengan warna `#526dff` dan bobot font 600
 
----
+#### Mode Download
+
+- **Video + Audio** — Gabungkan stream video terbaik + audio terbaik menggunakan FFmpeg
+- **Video Only** — Unduh stream video saja tanpa audio
+- **Audio Only** — Ekstrak audio dengan berbagai codec (MP3, M4A, AAC, FLAC, WAV, OPUS, OGG)
+- **Custom format selector** — Field teks bebas untuk memasukkan format selector yt-dlp secara manual
+
+#### Format Video yang Didukung
+
+| Format | Mode | Keterangan |
+|--------|------|------------|
+| MP4 | Video + Audio, Video Only | Merge output langsung |
+| WEBM | Video + Audio, Video Only | Merge output langsung |
+| MKV | Video + Audio, Video Only | Merge output langsung |
+| MOV | Video + Audio, Video Only | Remux via `FFmpegVideoRemuxer` |
+
+#### Format Audio yang Didukung
+
+| Format | Bitrate Options | Post-processor |
+|--------|----------------|----------------|
+| MP3 | Best, 320k, 256k, 192k, 128k | `FFmpegExtractAudio` |
+| M4A | Best | `FFmpegExtractAudio` |
+| AAC | Best | `FFmpegExtractAudio` |
+| FLAC | Best (lossless) | `FFmpegExtractAudio` |
+| WAV | Best (lossless) | `FFmpegExtractAudio` |
+| OPUS | Best | `FFmpegExtractAudio` |
+| OGG | Best | `FFmpegExtractAudio` |
+
+#### Pilihan Kualitas Video
+
+| Kualitas | Resolusi Maksimum | Selector Fragment |
+|----------|-------------------|-------------------|
+| Best | Terbaik tersedia | `bestvideo+bestaudio/best` |
+| 8K | 4320p | `bestvideo[height<=4320]+bestaudio` |
+| 4K | 2160p | `bestvideo[height<=2160]+bestaudio` |
+| 1440p | 1440p | `bestvideo[height<=1440]+bestaudio` |
+| 1080p | 1080p | `bestvideo[height<=1080]+bestaudio` |
+| 720p | 720p | `bestvideo[height<=720]+bestaudio` |
+| 480p | 480p | `bestvideo[height<=480]+bestaudio` |
+| 360p | 360p | `bestvideo[height<=360]+bestaudio` |
+
+#### Analisis URL (Analyze URL)
+
+- **Ekstraksi metadata lengkap** tanpa mengunduh via `yt-dlp --skip-download --extract-flat in_playlist`
+- **Preview thumbnail otomatis** — Thumbnail diunduh dari URL dalam thread terpisah dan ditampilkan di panel metadata
+- **Deskripsi konten bertahap (chunk-based rendering)** — Deskripsi panjang dirender secara bertahap menjaga UI tetap responsif
+- **Deteksi tipe konten otomatis** dengan empat kategori:
+  - `video` — Video tunggal
+  - `playlist` — Playlist (berdasarkan `_type` = `playlist` atau `multi_video`)
+  - `channel` — Kanal (berdasarkan nama extractor mengandung `channel`)
+  - `generic` — Situs generik / tidak teridentifikasi
+- **Metadata yang ditampilkan**: judul, uploader/channel, durasi, website/extractor, tipe konten, jumlah video, view count, like count, tanggal upload
+- **Validasi URL** sebelum analisis — hanya skema `http://` dan `https://` yang diterima
 
 #### Manajemen Playlist
 
-- **Tampilan daftar item** menggunakan `QListView` dengan `PlaylistItemsModel` (subclass `QAbstractListModel`).
-- **Item playlist** menampilkan nomor indeks dan judul; item tidak tersedia (judul `[Video tidak tersedia]`) diberi flag `Qt.NoItemFlags` dan tidak dapat dipilih.
-- **Tiga mode pemilihan item** yang saling eksklusif:
-  - **Download semua item** (`playlist_selection_mode="all"`) — default, mengunduh seluruh playlist
-  - **Download range item** (`playlist_selection_mode="range"`) — isi From dan To; menggunakan `playliststart` dan `playlistend` yt-dlp
-  - **Download item terpilih** (`playlist_selection_mode="selected"`) — pilih item individual dari daftar; menggunakan `playlist_items` yt-dlp
-- **Tombol aksi playlist**:
-  - **Pilih Semua** — mencentang semua item yang tersedia
-  - **Kosongkan** — menghapus centang semua item
-  - **Balik Pilihan** — membalik status centang setiap item
-- **Counter pilihan** realtime menampilkan "Terpilih: X / Y" (X item terpilih dari Y item yang dapat dipilih).
-- **Selector string** (`selected_selector()`) — mengonversi item terpilih ke format range yt-dlp (contoh: `"1-3,5,8-9"`) dengan penggabungan range yang berurutan secara otomatis.
-- **Validasi selector** (`_valid_playlist_selector`) — memastikan format selector valid sebelum dikirim ke yt-dlp.
-- **Sinkronisasi mode** — memilih item di daftar otomatis mengaktifkan mode "Download item terpilih".
-- **Skip unavailable videos** — mengaktifkan `ignoreerrors=True` di yt-dlp untuk melewati video yang tidak tersedia.
-- **Preserve structure** — menggunakan template folder bertingkat `channel/playlist/item` untuk menyimpan file dengan hierarki direktori yang mencerminkan struktur konten.
-- **Kontrol playlist tersembunyi** secara default — daftar dan kontrol pilihan hanya ditampilkan jika konten yang dianalisis adalah playlist atau channel.
+- **Daftar item playlist** dengan tampilan: nomor indeks, judul, dan ketersediaan (availability)
+- **Pilih Semua** (`Select All`) — centang semua item dalam daftar
+- **Kosongkan Pilihan** (`Clear`) — hapus semua pilihan
+- **Balik Pilihan** (`Invert`) — toggle pilihan: item terpilih menjadi tidak terpilih, vice versa
+- **Tiga mode pemilihan item**:
+  - `Download semua item` — Unduh seluruh playlist/channel
+  - `Download range item` — Tentukan From (indeks awal) dan To (indeks akhir)
+  - `Download item terpilih` — Pilih item spesifik dari daftar; selector otomatis dibangkitkan dalam format `"1,3,5-7"`
+- **Skip unavailable videos** — `ignoreerrors=True` agar video yang dihapus/privat dalam playlist dilewati
+- **Preserve structure** — Simpan file dengan hierarki folder `channel/playlist/item`
+- **`QAbstractListModel` kustom** (`PlaylistItemsModel`) untuk daftar playlist yang efisien
 
----
+#### Opsi Metadata dan File
 
-#### Format & Kualitas
+| Opsi | Flag yt-dlp | Keterangan |
+|------|-------------|------------|
+| Embed subtitle | `embedsubtitles` | Tempelkan subtitle ke dalam container video |
+| Auto subtitle | `writeautomaticsub` | Gunakan subtitle otomatis (auto-generated) dari platform |
+| Subtitle languages | `subtitleslangs` | Kode bahasa: `id,en` atau `all` |
+| Embed thumbnail | `embedthumbnail` + `convertthumbnails:jpg` | Sematkan sampul; thumbnail WebP/AVIF dikonversi ke JPG otomatis |
+| Embed metadata | `embedmetadata` + `FFmpegMetadata` | Tambahkan metadata + chapter |
+| Write info JSON | `writeinfojson` | Simpan metadata sebagai `<title>.info.json` |
+| Write description | `writedescription` | Simpan deskripsi sebagai `<title>.description` |
+| Write thumbnail | `writethumbnail` | Simpan thumbnail sebagai file gambar terpisah |
 
-- **Tiga mode download**:
-  - `Video + Audio` — menggabungkan stream video terbaik dan audio terbaik (default)
-  - `Video Only` — hanya stream video tanpa audio
-  - `Audio Only` — hanya stream audio, dengan konversi via FFmpeg
-- **Format video**: MP4, WEBM, MKV, MOV
-- **Format audio**: MP3, M4A, AAC, FLAC, WAV, OPUS, OGG
-- **Kualitas video**: Best, 8K (4320p), 4K (2160p), 1440p, 1080p, 720p, 480p, 360p
-- **Kualitas audio**: Best, 320k, 256k, 192k, 128k; format lossless (FLAC, WAV) selalu menggunakan best
-- **Custom format selector** — mendukung sintaks format yt-dlp penuh, contoh: `bv*[height<=1080]+ba/b`
-- **Format selector otomatis**:
-  - `Video + Audio` dengan quality limit: `bestvideo[height<=N]+bestaudio/best[height<=N]/best`
-  - `Video Only` dengan quality limit: `bestvideo[height<=N]/bestvideo`
-  - `Audio Only`: `bestaudio/best`
-  - Custom format mengambil alih semua selector di atas
-- **Merge output format** — container target (`mp4`, `webm`, `mkv`) diteruskan sebagai `merge_output_format`
-- **MOV remux** — menggunakan `FFmpegVideoRemuxer` postprocessor karena MOV tidak didukung sebagai merge target langsung
-- **Audio extraction** — menggunakan `FFmpegExtractAudio` postprocessor; bitrate diekstrak dari string quality (contoh: `"192k"` → `"192"`)
-- **Update pilihan format dan kualitas** secara dinamis saat mode download berubah
+> **Catatan teknis:** Thumbnail WebP/AVIF secara eksplisit dikonversi ke JPG via `convertthumbnails=jpg` dan postprocessor `FFmpegThumbnailsConvertor` karena beberapa container media tidak mendukung artwork dalam format tersebut.
 
----
+#### Autentikasi dan Jaringan
 
-#### Subtitle
+- **Cookies dari browser** — Dukungan tujuh browser: `Chrome`, `Firefox`, `Edge`, `Safari`, `Brave`, `Opera`, `Vivaldi` via `cookiesfrombrowser=(browser_name,)`
+- **Cookies dari file** — Input `cookies.txt` format Netscape standar via `cookiefile`; divalidasi keberadaan file sebelum digunakan
+- **Proxy** — Dukungan penuh: `http://`, `https://`, `socks4://`, `socks5://`, `socks5h://`; skema divalidasi sebelum dikirim ke yt-dlp
 
-- **Download subtitle** (`writesubtitles`) — mengunduh file subtitle terpisah
-- **Subtitle otomatis** (`writeautomaticsub`) — menggunakan subtitle auto-generated (misal dari YouTube)
-- **Embed subtitle** (`embedsubtitles`) — menyematkan subtitle ke dalam file video; tidak berlaku untuk format audio
-- **Bahasa subtitle** (`subtitleslangs`) — daftar kode bahasa dipisahkan koma (contoh: `id,en`); default `all`
-- **Sinkronisasi embed** — mengaktifkan embed subtitle juga otomatis mengaktifkan opsi download subtitle
+#### Progres Realtime
 
----
+- **Progress bar per-item** — Persentase unduhan video/audio saat ini (diperbarui via `progress_hooks`)
+- **Progress bar total** — Persentase keseluruhan playlist berdasarkan jumlah item selesai
+- **Metrics real-time**: kecepatan unduhan (formatted), ETA (waktu estimasi selesai), ukuran terunduh vs total
+- **Tab Logs real-time** — Setiap event yt-dlp (debug, info, warning, error) dicatat dengan timestamp dan pewarnaan berdasarkan level
+- **Buka file/folder otomatis** — Setelah unduhan selesai, buka file hasil dengan aplikasi default sistem operasi
 
-#### Metadata & Thumbnail
+#### Riwayat Unduhan (History Tab)
 
-- **Embed thumbnail** (`embedthumbnail`) — menyematkan gambar sampul ke dalam file media
-- **Konversi thumbnail ke JPG** (`convertthumbnails="jpg"`) — thumbnail WebP/AVIF dikonversi ke JPEG sebelum di-embed agar kompatibel dengan container video dan audio
-- **Urutan postprocessor thumbnail** yang benar: `FFmpegThumbnailsConvertorPP` → `EmbedThumbnailPP`
-- **Embed metadata** (`embedmetadata`) — menyematkan judul, artis, album, dan chapter ke file media menggunakan `FFmpegMetadataPP`
-- **Write info JSON** (`writeinfojson`) — menyimpan seluruh metadata sebagai file `.info.json`
-- **Write description** (`writedescription`) — menyimpan deskripsi konten sebagai file `.description`
-- **Write thumbnail** (`writethumbnail`) — menyimpan gambar sampul sebagai file gambar terpisah
+- **SQLite database persisten** — Database `data/history.db` bertahan antar sesi; dibuat otomatis jika belum ada
+- **Skema tabel `history`** dengan kolom lengkap:
 
----
+| Kolom | Tipe | Keterangan |
+|-------|------|------------|
+| `id` | INTEGER PK | Primary key auto-increment |
+| `title` | TEXT | Judul konten |
+| `url` | TEXT | URL sumber |
+| `site` | TEXT | Nama extractor/situs |
+| `content_type` | TEXT | `video` / `playlist` / `channel` / `generic` |
+| `format` | TEXT | Format output yang dipilih |
+| `quality` | TEXT | Kualitas yang dipilih |
+| `output_path` | TEXT | Path folder/file output |
+| `status` | TEXT | `downloading` / `completed` / `failed` / `cancelled` |
+| `created_at` | TEXT | Timestamp ISO8601 |
+| `downloaded_count` | INTEGER | Jumlah item berhasil diunduh |
+| `downloaded_size` | INTEGER | Total ukuran unduhan dalam bytes |
 
-#### Autentikasi & Jaringan
+- **Migrasi otomatis (backward compatible)** — Kolom `downloaded_count` dan `downloaded_size` ditambahkan via `ALTER TABLE` jika database lama belum memilikinya
+- **Filter pencarian teks** — Cari berdasarkan judul atau URL
+- **Filter status** — Tampilkan semua / hanya `completed` / `failed` / `cancelled` / `downloading`
+- **Aksi dari baris history**:
+  - Buka file — Buka file hasil dengan aplikasi default
+  - Buka folder — Buka folder output di file manager
+  - Unduh ulang (Redownload) — Isi ulang form dengan parameter unduhan sebelumnya
+  - Hapus baris — Hapus satu entri dari database
+  - Hapus semua — Bersihkan seluruh history
+- **Export history** — Export ke format **CSV** atau **JSON** untuk keperluan audit/laporan
 
-- **Cookies dari browser** (`cookiesfrombrowser`) — mendukung Chrome, Firefox, Edge, Safari, Brave, Opera, Vivaldi
-- **Cookies dari file** (`cookiefile`) — menerima file `cookies.txt` format Netscape; divalidasi keberadaannya sebelum digunakan
-- **Proxy** (`proxy`) — mendukung HTTP, HTTPS, SOCKS4, SOCKS5 (`socks5h`); divalidasi skema URL sebelum digunakan
-- **Validasi proxy** — menolak URL proxy tanpa skema yang valid (misal `localhost:8080` tanpa `http://`)
-- **Retry otomatis** — `retries=10`, `fragment_retries=10`, `file_access_retries=5`, `extractor_retries=5`
-- **Continue download** — `continuedl=True` memungkinkan melanjutkan unduhan yang terputus
-- **Safe Windows filenames** — `windowsfilenames=True` diaktifkan otomatis di Windows untuk mengganti karakter yang tidak valid
+#### Pengaturan (Settings Dialog)
 
----
+| Pengaturan | Default | Tipe |
+|-----------|---------|------|
+| `theme` | `System` | `Light` / `Dark` / `System` |
+| `download_folder` | `~/Downloads` | Path string |
+| `default_format` | `Best video + best audio` | Dropdown |
+| `default_quality` | `Best` | Dropdown |
+| `ffmpeg_path` | (kosong) | Path string opsional |
+| `concurrent_downloads` | `1` | Integer 1 hingga 8 |
+| `filename_template` | `%(title)s [%(id)s].%(ext)s` | String template yt-dlp |
+| `auto_check_update` | `true` | Boolean |
+| `notification_on_complete` | `true` | Boolean |
 
-#### Riwayat Unduhan
+- **Settings dialog** dapat dibuka dari menu/tombol di header
+- **Penyimpanan atomik** (`settings_service.py`) — Tulis ke file sementara, lalu ganti secara atomik; mencegah korupsi data jika aplikasi ditutup paksa saat menyimpan
+- **Reset ke default** — Tombol Reset di Settings mengembalikan semua nilai ke `DEFAULT_SETTINGS`
+- **File `data/settings.json`** dibuat otomatis saat pertama kali dijalankan
 
-- **Database SQLite** tersimpan di `data/history.db` — persisten antar sesi aplikasi
-- **Skema tabel** `history` dengan kolom:
-  - `id` — primary key auto-increment
-  - `title`, `url` — identitas konten
-  - `site`, `content_type` — sumber dan jenis konten
-  - `format`, `quality` — format dan kualitas yang diunduh
-  - `output_path` — path folder/file keluaran
-  - `status` — status unduhan: `downloading`, `completed`, `failed`, `cancelled`
-  - `created_at` — timestamp ISO 8601
-  - `downloaded_count` — jumlah file yang berhasil diunduh
-  - `downloaded_size` — total ukuran file dalam byte
-- **Migrasi otomatis** — kolom `downloaded_count` dan `downloaded_size` ditambahkan via `ALTER TABLE` jika belum ada (backward compatible dengan database dari versi sebelumnya)
-- **Pencatatan otomatis** — setiap unduhan dicatat saat dimulai dan diperbarui saat selesai/gagal/dibatalkan
-- **Filter riwayat** berdasarkan teks pencarian (title/URL) dan status
-- **Aksi dari tab History**:
-  - **Open file** — membuka file hasil unduhan dengan aplikasi default OS
-  - **Open folder** — membuka folder output di file manager
-  - **Redownload** — mengisi kembali URL di tab Downloader
-  - **Delete selected** — menghapus satu baris dari riwayat
-  - **Clear all** — menghapus seluruh riwayat (dengan konfirmasi)
-- **Export CSV** — mengekspor seluruh riwayat ke file `.csv` dengan encoding UTF-8 BOM
-- **Export JSON** — mengekspor seluruh riwayat ke file `.json` dengan indentasi dan karakter non-ASCII dipertahankan
-- **Statistik kumulatif** di statusbar — total file selesai dan total ukuran dari semua unduhan `completed`
+#### Update yt-dlp
 
----
+- **Update in-background** — Proses update yt-dlp berjalan di `UpdaterWorker` (QThread) tanpa membekukan UI
+- **Versi yt-dlp** selalu ditampilkan di statusbar bawah menggunakan `importlib.metadata.version("yt-dlp")`
+- **Daftar extractor aktif** dapat dilihat di dialog **Supported Sites** — memuat daftar nama dari `yt_dlp.extractor.gen_extractor_classes()`
 
-#### Pengaturan Aplikasi
+#### Arsitektur dan Internal
 
-- **Penyimpanan pengaturan** di `data/settings.json` menggunakan `SettingsService`
-- **Atomic write** — pengaturan ditulis ke file sementara (`.tmp`) lalu di-rename untuk mencegah korupsi file saat proses tulis terganggu
-- **Pemulihan file rusak** — jika `settings.json` tidak dapat diparsing, file diganti nama menjadi `.broken` dan nilai default digunakan
-- **Nilai pengaturan default**:
-  - `theme`: `"System"` — mengikuti tema OS
-  - `download_folder`: `~/Downloads` — folder unduhan default
-  - `default_format`: `"Best video + best audio"` — format awal
-  - `default_quality`: `"Best"` — kualitas awal
-  - `ffmpeg_path`: `""` — path FFmpeg kustom (kosong = otomatis via `PATH`)
-  - `concurrent_downloads`: `1` — unduhan paralel (1–8)
-  - `filename_template`: `"%(title)s [%(id)s].%(ext)s"` — template nama file yt-dlp
-  - `auto_check_update`: `true` — cek update yt-dlp otomatis
-  - `notification_on_complete`: `true` — notifikasi saat selesai
-- **Resolusi FFmpeg** (`FFmpegService.resolve()`) — menerima path file atau direktori; jika direktori, mencari `ffmpeg.exe` (Windows) atau `ffmpeg` (POSIX); fallback ke `shutil.which("ffmpeg")`
-- **Reset pengaturan** — mengembalikan semua nilai ke default via tombol Reset di dialog
+- **`main.py`** — Entry point minimal: inisialisasi `QApplication`, load tema awal, tampilkan `MainWindow`
+- **`app/__init__.py`** — Metadata versi: `__version__ = "1.0.0"`
+- **`app/config.py`** — Konstanta path (`ROOT_DIR`, `DATA_DIR`, `SETTINGS_PATH`, `HISTORY_PATH`), `DEFAULT_SETTINGS`, `LIGHT_QSS`, `DARK_QSS`
+- **`app/database.py`** — Koneksi SQLite + migrasi skema otomatis; `row_factory = sqlite3.Row` untuk akses kolom by-name
+- **`YtDlpService`** — Kelas service tanpa state (stateless) sebagai abstraksi tunggal untuk semua operasi yt-dlp
 
----
+| Method | Keterangan |
+|--------|------------|
+| `validate_url()` | Validasi skema HTTP/HTTPS |
+| `analyze()` | Ekstrak metadata tanpa download |
+| `normalize_info()` | Normalisasi dict info ke format internal |
+| `build_options()` | Bangun opsi yt-dlp lengkap dari `DownloadRequest` |
+| `download()` | Eksekusi unduhan dengan hook progress dan cancel event |
+| `list_extractors()` | Daftar semua extractor aktif (sorted case-insensitive) |
+| `friendly_error()` | Terjemahkan exception yt-dlp ke pesan ramah pengguna |
+| `installed_version()` | Versi yt-dlp yang terinstal |
 
-#### Log & Diagnostik
+- **`DownloadRequest`** — Python `@dataclass` sebagai Data Transfer Object (DTO) yang merangkum seluruh opsi unduhan (23 field)
+- **`CancelledError`** — Exception kustom yang di-raise di dalam `progress_hook` ketika `cancel_event.is_set()`
+- **`QThread` Worker Pattern** via `moveToThread()`:
+  - `AnalyzerWorker` — Analisis URL + fetch thumbnail di thread terpisah
+  - `DownloaderWorker` — Unduhan + progress + cancel event di thread terpisah
+  - `UpdaterWorker` — Update yt-dlp + daftar extractor di thread terpisah
+- **`MainWindow._thread()`** — Helper factory yang membuat dan menghubungkan `QThread` secara konsisten
+- **Konfirmasi keluar saat unduhan aktif** — `closeEvent` menampilkan dialog konfirmasi jika ada `DownloaderWorker` yang masih berjalan
+- **Validasi playlist selector** — `_valid_playlist_selector()` memvalidasi string seperti `"1,3,5-7"` sebelum dikirim ke yt-dlp
+- **Helper internal `ytdlp_service.py`**:
+  - `_non_negative_int()` — Normalisasi integer non-negatif; menolak `bool`
+  - `_upload_date()` — Validasi string tanggal YYYYMMDD 8-digit ASCII
+  - `_playlist_item()` — Normalisasi satu entry playlist
+  - `_playlist_items()` — Normalisasi seluruh entries menjadi tuple
 
-- **Tab Logs** dengan `QPlainTextEdit` (read-only) menampilkan semua event dari yt-dlp secara realtime
-- **Format baris log**: `[YYYY-MM-DD HH:MM:SS] [LEVEL] Pesan`
-- **Level log**: `Debug`, `Info`, `Warning`, `Error`
-- **Filter level log** — dropdown untuk menampilkan level tertentu atau semua level
-- **Aksi log**:
-  - **Clear logs** — menghapus seluruh tampilan dan rekaman log
-  - **Save logs** — menyimpan log ke file `.log` atau `.txt`
-  - **Copy logs** — menyalin semua log ke clipboard sistem
-- **Logger custom** (`_Logger`) — menjembatani interface logger yt-dlp (`debug`, `info`, `warning`, `error`) ke sinyal Qt `log(str, str)`
+#### Test Suite
 
----
-
-#### Pembaruan yt-dlp
-
-- **Tombol Update yt-dlp** di dialog Settings menjalankan `pip install --upgrade yt-dlp` di background thread
-- **UpdaterWorker** dengan dua mode aksi:
-  - `"update"` — memperbarui yt-dlp via pip (timeout 300 detik)
-  - `"sites"` — memuat daftar extractor aktif dari yt-dlp yang terinstal
-- **Pembaruan versi di statusbar** — versi yt-dlp diperbarui otomatis setelah update selesai
-- **Dialog Supported Sites** — menampilkan daftar semua nama extractor yang dapat dicari, dengan tombol Refresh untuk memperbarui daftar dari yt-dlp yang baru
-
----
-
-#### Arsitektur & Internal
-
-- **Pola QThread Worker** — semua operasi I/O berat (analisis URL, unduhan, update pip, list extractor) dijalankan di QThread terpisah menggunakan `moveToThread`, menjaga UI tetap responsif
-- **Lifecycle thread yang aman** — sinyal `on_finished` terhubung ke `thread.quit()` dan `worker.deleteLater()`; `thread.finished` terhubung ke `thread.deleteLater()` dan cleanup list thread
-- **Cancel event berbasis `threading.Event`** — unduhan dapat dibatalkan kapan saja dari thread UI; event diperiksa di dalam progress hook yt-dlp
-- **Graceful close** — jika ada thread berjalan saat aplikasi ditutup, unduhan dibatalkan terlebih dahulu (`_close_when_idle=True`) sebelum jendela ditutup
-- **Signal-slot yang diketik** — semua koneksi sinyal menggunakan tipe eksplisit (`Signal(dict)`, `Signal(object, str)`, dll.) untuk keamanan runtime
-- **`DownloadRequest` dataclass** — merepresentasikan seluruh parameter unduhan sebagai objek yang dapat diinspeksi dan diuji
-- **`YtDlpService` stateless** — tidak menyimpan state; dapat diinstansiasi berulang kali tanpa efek samping
-- **Pesan error yang ramah pengguna** (`friendly_error()`) — mengonversi exception teknis ke pesan Bahasa Indonesia yang mudah dipahami
-- **Pemisahan lapisan** yang jelas: `services/` (logika bisnis), `workers/` (threading), `ui/` (presentasi)
-- **Injeksi dependensi di worker** — `service` parameter opsional di worker memungkinkan mock di unit test
-- **SQLite Row factory** — `connection.row_factory = sqlite3.Row` memungkinkan akses kolom by-name
-- **Path safety** — semua path output divalidasi berada dalam direktori yang ditentukan (`safe_output_files` menggunakan `path.relative_to(root)`)
-- **Penanganan path Windows** — `os.path.normcase()` digunakan untuk deduplication path case-insensitive di Windows
-
----
-
-#### Pengujian
-
-- **Framework**: pytest ≥ 8.0 + pytest-qt ≥ 4.4
-- **7 file test** dengan total lebih dari 100 kasus uji:
-
-| File | Fokus Pengujian |
-|------|----------------|
-| `test_core.py` | Validasi URL, klasifikasi info, normalisasi metadata, playlist selector |
-| `test_ytdlp_service.py` | `build_options()`, format selector, postprocessor, validasi request, edge case |
+| File Test | Yang Diuji |
+|-----------|------------|
+| `test_core.py` | Validasi URL, klasifikasi tipe konten, normalisasi metadata, validasi playlist selector |
+| `test_ytdlp_service.py` | `build_options()`, validasi `DownloadRequest`, format selector, postprocessor |
 | `test_downloader_worker.py` | Cancel event, `discover_final_paths()`, error handling |
-| `test_playlist_items_model.py` | Select/clear/invert, `selected_selector()`, item tidak tersedia |
-| `test_ui.py` | DownloaderTab form, HistoryTab, `update_progress()`, interaksi widget |
-| `test_auto_open.py` | `safe_output_files()`, `_open_completed_result()`, logika multi vs single file |
-| `test_about_dialog.py` | Render `build_about_html()`, sanitasi HTML dengan `escape()` |
+| `test_playlist_items_model.py` | Select/clear/invert, `selected_selector()`, display data |
+| `test_ui.py` | `DownloaderTab`, `HistoryTab`, komponen form, update progress |
+| `test_auto_open.py` | `safe_output_files()`, `_open_completed_result()` |
+| `test_about_dialog.py` | Render dialog About |
 
-- **Pendekatan pengujian**:
-  - `monkeypatch` untuk mengisolasi dependensi eksternal (metadata, subprocess)
-  - `tmp_path` fixture pytest untuk pengujian I/O tanpa side effect
-  - `@pytest.mark.parametrize` untuk pengujian berbasis data dengan banyak kasus input
-  - Pengujian integrasi `yt_dlp.YoutubeDL` nyata untuk verifikasi postprocessor pipeline
-  - Mock `service` di worker untuk pengujian unit tanpa yt-dlp aktif
+- **Framework**: `pytest >= 8.0` + `pytest-qt >= 4.4`
+
+#### Dokumentasi
+
+- `README.md` — Dokumentasi lengkap 900+ baris mencakup:
+  - Daftar isi navigasi dengan anchor link
+  - Fitur lengkap dalam format tabel
+  - Panduan instalasi untuk Windows, macOS, Linux
+  - Panduan instalasi FFmpeg untuk 5 platform (Windows, macOS, Ubuntu/Debian, Fedora/RHEL, Arch Linux)
+  - Panduan penggunaan step-by-step untuk 7 skenario
+  - Dokumentasi konfigurasi `settings.json`
+  - Template nama file dan template struktur folder
+  - Diagram arsitektur kode ASCII art
+  - Diagram aliran data yang detail
+  - Dokumentasi API komponen utama
+  - Panduan troubleshooting untuk 7 masalah umum
+  - Informasi data lokal dan cara reset
+  - Referensi dan sumber daya
+  - Panduan kontribusi
+  - Klausul penggunaan legal dan etis
+  - Lisensi MIT beserta tabel lisensi dependensi
+
+#### Dependensi
+
+| Paket | Versi Minimum | Peran |
+|-------|--------------|-------|
+| `PySide6` | `>= 6.7, < 7` | Framework UI Qt6 |
+| `yt-dlp` | `>= 2025.1.1` | Engine unduhan video |
+| `pytest` | `>= 8.0` | Framework pengujian |
+| `pytest-qt` | `>= 4.4` | Plugin Qt untuk pytest |
+
+#### Persyaratan Sistem
+
+| Komponen | Minimum | Direkomendasikan |
+|----------|---------|-----------------|
+| Python | 3.11 | 3.12+ |
+| OS | Windows 10 / macOS 12 / Ubuntu 20.04 | Windows 11 / macOS 14 / Ubuntu 22.04 |
+| RAM | 256 MB | 512 MB+ |
+| Disk | 100 MB | 200 MB+ |
+| FFmpeg | Opsional | v6.x+ (wajib untuk merge/konversi) |
 
 ---
 
-### Diubah
+## Commit History (v1.0.0)
 
-> Versi ini adalah rilis perdana — tidak ada perubahan dari versi sebelumnya.
+Berikut catatan semua commit yang membentuk rilis `v1.0.0`:
 
----
+### `459a0b4` — 2026-07-01 19:18 WIB
 
-### Diperbaiki
+**`docs: add MIT license section and dependency license table to README`**
 
-> Versi ini adalah rilis perdana — tidak ada perbaikan bug dari versi sebelumnya.
-
----
-
-### Dihapus
-
-> Versi ini adalah rilis perdana — tidak ada fitur yang dihapus.
+- Menambahkan teks penuh lisensi MIT ke `README.md`
+- Menambahkan tabel lisensi seluruh dependensi (yt-dlp, PySide6, FFmpeg, pytest, pytest-qt)
+- Menambahkan catatan interpretatif lisensi MIT
 
 ---
 
-### Keamanan
+### `670dba9` — 2026-07-01 19:12 WIB
 
-- **Validasi path output** — path file hasil unduhan diverifikasi berada dalam direktori output yang ditentukan pengguna untuk mencegah path traversal
-- **Validasi URL** — hanya URL HTTP/HTTPS yang diterima; URL dengan skema lain (`file://`, `ftp://`, dll.) ditolak
-- **Validasi cookies file** — path file cookies diverifikasi keberadaannya sebelum diteruskan ke yt-dlp
-- **Validasi proxy URL** — skema proxy diverifikasi terhadap daftar izin (`http`, `https`, `socks4`, `socks5`, `socks5h`)
-- **Validasi playlist selector** — format selector divalidasi dengan aturan ketat sebelum diteruskan ke yt-dlp
-- **Disclaimer penggunaan legal** — peringatan hak cipta ditampilkan di dialog About dan README
+**`docs: update repository URL and project name in installation instructions`**
+
+- Memperbarui URL clone repositori ke `https://github.com/Athallah1234/All-In-One-Video-Downloader.git`
+- Memperbarui nama direktori setelah clone di panduan instalasi
 
 ---
 
-## Panduan Migrasi
+### `b40926e` — 2026-07-01 19:10 WIB
 
-### Dari versi sebelumnya (pre-1.0.0)
+**`docs: add comprehensive table of contents and update internal anchor links in README.md`**
 
-Jika Anda menggunakan versi pengembangan sebelum rilis ini, perhatikan hal berikut:
+- Menambahkan Daftar Isi (Table of Contents) yang komprehensif dengan 30+ anchor link
+- Memperbaiki dan menstandardisasi semua internal anchor link agar kompatibel dengan GitHub Markdown renderer
 
-**Database `history.db`:**
-Skema database mengalami penambahan dua kolom baru secara otomatis saat aplikasi pertama kali dijalankan:
-```sql
-ALTER TABLE history ADD COLUMN downloaded_count INTEGER NOT NULL DEFAULT 0;
-ALTER TABLE history ADD COLUMN downloaded_size INTEGER NOT NULL DEFAULT 0;
+---
+
+### `070aa3d` — 2026-07-01 19:07 WIB
+
+**`Initial commit`**
+
+- Inisialisasi repositori proyek **Modern Video Downloader v1.0.0**
+- Seluruh kode sumber aplikasi pertama kali di-commit:
+
+**App Core:**
+- `main.py` — Entry point
+- `app/__init__.py` — Versi `1.0.0`
+- `app/config.py` — Konstanta dan QSS stylesheet
+- `app/database.py` — SQLite + migrasi otomatis
+
+**Services:**
+- `app/services/ytdlp_service.py` — Service inti + `DownloadRequest` dataclass
+- `app/services/history_service.py` — CRUD riwayat + ekspor CSV/JSON
+- `app/services/settings_service.py` — Load/save/reset settings atomik
+- `app/services/ffmpeg_service.py` — Deteksi FFmpeg
+
+**Workers (QThread):**
+- `app/workers/analyzer_worker.py` — AnalyzerWorker
+- `app/workers/downloader_worker.py` — DownloaderWorker dengan cancel support
+- `app/workers/updater_worker.py` — UpdaterWorker
+
+**UI Components:**
+- `app/ui/main_window.py` — MainWindow + orchestrator utama
+- `app/ui/downloader_tab.py` — Tab utama (form, preview, progress)
+- `app/ui/history_tab.py` — Tab riwayat unduhan
+- `app/ui/logs_tab.py` — Tab log realtime
+- `app/ui/playlist_items_model.py` — QAbstractListModel untuk playlist
+- `app/ui/settings_dialog.py` — Dialog pengaturan
+- `app/ui/about_dialog.py` — Dialog tentang aplikasi
+- `app/ui/supported_sites_dialog.py` — Dialog daftar situs didukung
+
+**Tests:**
+- `tests/test_core.py`
+- `tests/test_ytdlp_service.py`
+- `tests/test_downloader_worker.py`
+- `tests/test_playlist_items_model.py`
+- `tests/test_ui.py`
+- `tests/test_auto_open.py`
+- `tests/test_about_dialog.py`
+
+**Files lainnya:**
+- `requirements.txt`
+- `README.md`
+- `.gitignore`
+
+---
+
+## Catatan Migrasi dan Kompatibilitas
+
+### Database (`data/history.db`)
+
+Jika Anda pernah menggunakan versi development sebelum `1.0.0`, database lama tetap kompatibel karena:
+
+- Kolom `downloaded_count` dan `downloaded_size` ditambahkan secara otomatis via `ALTER TABLE` jika belum ada
+- Tidak ada data yang hilang selama proses migrasi
+- Nilai default `0` diberikan ke semua baris lama untuk kedua kolom baru tersebut
+
+### Settings (`data/settings.json`)
+
+- File pengaturan lama yang hanya berisi subset key tetap berfungsi normal
+- Key yang tidak ditemukan dalam file akan secara otomatis diisi nilai default dari `DEFAULT_SETTINGS`
+- Tidak ada perubahan nama key di `v1.0.0`
+
+---
+
+## Konvensi Pesan Commit
+
+Proyek ini mengikuti konvensi [Conventional Commits](https://www.conventionalcommits.org/):
+
+| Prefix | Keterangan |
+|--------|-----------|
+| `feat:` | Fitur baru |
+| `fix:` | Perbaikan bug |
+| `docs:` | Perubahan dokumentasi saja |
+| `style:` | Format kode (tidak mengubah logika) |
+| `refactor:` | Refactoring tanpa perubahan perilaku |
+| `perf:` | Peningkatan performa |
+| `test:` | Penambahan atau perubahan test |
+| `chore:` | Tugas pemeliharaan (dependensi, build) |
+| `ci:` | Perubahan konfigurasi CI/CD |
+| `revert:` | Membalik commit sebelumnya |
+
+**Format commit:**
+
 ```
-Tidak perlu tindakan manual — migrasi dilakukan otomatis.
+<type>(<scope>): <subject>
 
-**File `settings.json`:**
-Jika `settings.json` dari versi lama tidak mengandung kunci baru, nilai default akan digunakan secara otomatis.
-Untuk menggunakan nilai default sepenuhnya, hapus `data/settings.json` atau klik **Reset** di dialog Settings.
+<body>
 
----
+<footer>
+```
 
-## Versi Dependensi
+**Contoh:**
 
-| Paket | Versi Minimum | Versi Diuji | Catatan |
-|-------|--------------|-------------|---------|
-| Python | 3.11 | 3.12.x | `int \| None` union type syntax memerlukan Python ≥ 3.10 |
-| PySide6 | 6.7.0 | 6.7.x | Qt6 binding resmi untuk Python |
-| yt-dlp | 2025.1.1 | 2025.x | Engine unduhan utama |
-| pytest | 8.0.0 | 8.x | Framework pengujian |
-| pytest-qt | 4.4.0 | 4.4.x | Plugin Qt untuk pytest |
-| FFmpeg | 4.0 (opsional) | 6.x, 7.x | Wajib untuk merge, konversi, embed |
-| SQLite | 3.x (bawaan Python) | — | Database riwayat unduhan |
+```
+feat(downloader): add speed limit control per download item
+
+Implement configurable per-item speed limit via yt-dlp ratelimit option.
+Users can now set a maximum download speed in KB/s or MB/s from Settings.
+
+Closes #42
+```
 
 ---
 
-## Konvensi Penamaan
+## Tautan
 
-Changelog ini menggunakan kategori berikut sesuai Keep a Changelog:
-
-| Kategori | Keterangan |
-|----------|-----------|
-| `Ditambahkan` | Fitur baru yang ditambahkan |
-| `Diubah` | Perubahan pada fitur yang sudah ada |
-| `Deprecated` | Fitur yang akan dihapus di versi mendatang |
-| `Dihapus` | Fitur yang dihapus dari versi ini |
-| `Diperbaiki` | Perbaikan bug |
-| `Keamanan` | Perbaikan atau penambahan terkait keamanan |
+- [Repositori GitHub](https://github.com/Athallah1234/All-In-One-Video-Downloader)
+- [Laporkan Bug](https://github.com/Athallah1234/All-In-One-Video-Downloader/issues)
+- [Ajukan Fitur](https://github.com/Athallah1234/All-In-One-Video-Downloader/issues/new?template=feature_request.md)
+- [yt-dlp CHANGELOG](https://github.com/yt-dlp/yt-dlp/blob/master/Changelog.md)
+- [PySide6 Release Notes](https://doc.qt.io/qtforpython-6/whats-new.html)
 
 ---
 
