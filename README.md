@@ -84,6 +84,7 @@
 - [🔗 Referensi & Sumber Daya](#-referensi--sumber-daya)
 - [🤝 Kontribusi](#-kontribusi)
 - [⚖️ Penggunaan Legal & Etis](#%EF%B8%8F-penggunaan-legal--etis)
+- [📄 Lisensi](#-lisensi)
 
 ---
 
@@ -850,9 +851,53 @@ Kontribusi sangat disambut! Berikut langkah-langkahnya:
 
 ---
 
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah **MIT License**.
+
+```
+MIT License
+
+Copyright (c) 2025 Athallah1234
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+> Lisensi MIT memberikan kebebasan untuk menggunakan, menyalin, memodifikasi, menggabungkan, menerbitkan, mendistribusikan, mensublisensikan, dan/atau menjual salinan perangkat lunak ini — dengan syarat pemberitahuan hak cipta dan izin ini disertakan dalam semua salinan atau bagian substansial dari perangkat lunak.
+
+### Lisensi Dependensi
+
+| Paket | Lisensi | Keterangan |
+|-------|---------|------------|
+| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | The Unlicense | Domain publik, bebas digunakan |
+| [PySide6](https://doc.qt.io/qtforpython-6/) | LGPL v3 | Qt for Python |
+| [FFmpeg](https://ffmpeg.org/legal.html) | LGPL v2.1+ / GPL v2+ | Tergantung build yang digunakan |
+| [pytest](https://docs.pytest.org/) | MIT | Framework pengujian |
+| [pytest-qt](https://pytest-qt.readthedocs.io/) | MIT | Plugin Qt untuk pytest |
+
+---
+
 <div align="center">
 
 **Modern Video Downloader v1.0.0** — Dibangun dengan ❤️ menggunakan Python, PySide6, dan yt-dlp
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 *Gunakan dengan bijak dan bertanggung jawab.*
 
