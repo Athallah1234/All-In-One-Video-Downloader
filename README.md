@@ -210,8 +210,8 @@ Aplikasi mendukung **semua extractor yt-dlp** secara dinamis — artinya setiap 
 ### 1. Kloning repositori
 
 ```bash
-git clone https://github.com/username/modern-video-downloader.git
-cd modern-video-downloader
+git clone https://github.com/Athallah1234/All-In-One-Video-Downloader.git
+cd All-In-One-Video-Downloader
 ```
 
 ### 2. Buat virtual environment
