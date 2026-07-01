@@ -1,0 +1,14 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+data/settings.json
+data/settings.json.broken
+data/history.db
+*.log
+docs/
+.agents/
+data/
+dist/
+build/
